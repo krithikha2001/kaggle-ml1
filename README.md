@@ -1,4 +1,4 @@
-# kaggle-ml1
+# Kaggle-ml1
 
 First we will read test.cv and train.cv files through pandas library.
 Then I will check which all features are contributing to survival of passengers.
