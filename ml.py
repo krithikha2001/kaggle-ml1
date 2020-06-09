@@ -37,7 +37,7 @@ sb.scatterplot(x=train['Survived'],y=train['SibSp'])
 sb.scatterplot(x=train['Survived'],y=train['Parch'],color="red")
 #both sibsp and patch do not deopend on survival]
 
-coloum=["Pclass", "Sex", "SibSp", "Parch"]
+coloum=["Pclass", "Sex", "SibSp", "Parch","Age"]
 X_test = pd.get_dummies(test[coloum])
 X_train = pd.get_dummies(train[coloum])
 
