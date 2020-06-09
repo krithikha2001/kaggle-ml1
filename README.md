@@ -7,7 +7,7 @@ Then I will check which all features are contributing to survival of passengers.
 Through Seaborn plots we plot for Pclass and SibSp and Parch
 By counting total we get that males died more than females and embarked place matters too  for survival
 ### age has null values so we fill that with median values and drop null values
-## Using Random Forest Classifies modelbased on construction of several "trees" that will individually consider each passenger's data and vote on whether the individual survived.
+## Using Random Forest Classifier modelbased on construction of several "trees" that will individually consider each passenger's data and vote on whether the individual survived.
 Whichever tree gets most votes win!
 
 So, we will consider features of Pclass ,Sex, SibSp, Parch,Age,Embarked
@@ -15,4 +15,4 @@ and using Eanodm Forest Classifier we train the model for x_train value and y=su
 Then the trained model will predit y for x_test values.
 This way we can get the desired output with passenger_id and y(predicted).
 
-
+A score of 0.84 we get during with random forest classifier model.
