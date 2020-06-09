@@ -13,18 +13,6 @@ for dirname, _, filenames in os.walk('/kaggle/input'):
     for filename in filenames:
         print(os.path.join(dirname, filename))
 
-'''train = pd.read_csv("/kaggle/input/titanic/train.csv")
-train.head()
-x=train.loc[train.Sex=='female']
-y=train.loc[train.Sex=='male']
-#x.Survived.tail().sum()
-#len(x.Survived)
-female=x.Survived.sum()/len(x.Survived)
-male=y.Survived.sum()/len(y.Survived)
-
-print("Percentage of female survived:",female)
-print("Percentage of male survived:",male)'''
-
 from sklearn.ensemble import RandomForestClassifier
 train = pd.read_csv("/kaggle/input/titanic/train.csv")
 test = pd.read_csv("/kaggle/input/titanic/test.csv")
@@ -51,12 +39,12 @@ X_test = pd.get_dummies(test[coloum])
 #from sklearn.model_selection import train_test_split
 
 #X_train=train[["Pclass", "Sex", "SibSp", "Parch"]]  # Features
-#y=train['Survived']  # Labels
+y=train['Survived']  # Labels
 
 #X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
 #creating gaussian classifier
-basic = RandomForestClassifier(n_estimators=1000)
+basic = RandomForestClassifier(n_estimators=100, max_depth=5, random_state=1)
 basic.fit(X_train, y)
 #training model
 y_pred = basic.predict(X_test)
@@ -64,9 +52,6 @@ y_pred = basic.predict(X_test)
 
 answer = pd.DataFrame({'PassengerId': test.PassengerId, 'Survived': y_pred})
 print(answer)
-#from sklearn import metrics
-# Model Accuracy, how often is the classifier correct?
-#print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
-#basic.score(X_train,y)
-#basic.score(X_test,y)
-answer.to_csv('my_submission.csv', index=False)
+
+basic.score(X_train,y)
+#answer.to_csv('my_submission.csv', index=False)
