@@ -16,3 +16,4 @@ Then the trained model will predit y for x_test values.
 This way we can get the desired output with passenger_id and y(predicted).
 
 A score of 0.84 we get during with random forest classifier model.
+This code got 0.77511
