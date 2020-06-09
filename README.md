@@ -6,7 +6,7 @@ Then I will check which all features are contributing to survival of passengers.
 ### Plotting graphs for pclass we get those graphs where upper class ppl have more survival rate
 Through Seaborn plots we plot for Pclass and SibSp and Parch
 By counting total we get that males died more than females and embarked place matters too  for survival
-### age has null values so we fill that with median values and drop null values
+### Age has null values so we fill that with median values and drop null values
 ## Using Random Forest Classifier modelbased on construction of several "trees" that will individually consider each passenger's data and vote on whether the individual survived.
 Whichever tree gets most votes win!
 
