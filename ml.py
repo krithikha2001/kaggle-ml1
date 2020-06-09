@@ -16,34 +16,32 @@ for dirname, _, filenames in os.walk('/kaggle/input'):
 from sklearn.ensemble import RandomForestClassifier
 train = pd.read_csv("/kaggle/input/titanic/train.csv")
 test = pd.read_csv("/kaggle/input/titanic/test.csv")
-cols = ['Name','Ticket','Cabin']
-train = train.drop(cols,axis=1)
-test=test.drop(cols,axis=1)
-'''dummies = []
-train['Age'] = train['Age'].interpolate()
-cols = ['Pclass','Sex','Embarked','Age']
-for col in cols:
- dummies.append(pd.get_dummies(train[col]))
-titanic_dummies = pd.concat(dummies, axis=1)
-train = pd.concat((train,titanic_dummies),axis=1)
-test = pd.concat((test,titanic_dummies),axis=1)
+import seaborn as sb
+import matplotlib.pyplot as plt
+sb.distplot(a=train[train['Survived']==1]['Pclass'],label='Alive')
+sb.distplot(a=train[train['Survived']==0]['Pclass'],label='Dead')
+plt.xticks([1,2,3])
+#survival depends on pclass
 
-train = train.drop(['Pclass','Sex','Embarked','Age'],axis=1)
-test = test.drop(['Pclass','Sex','Embarked','Age'],axis=1)
-'''
+#since age has null values
+test['Age'].replace(np.nan,np.median(test['Age'].dropna()),inplace=True)
+train['Age'].replace(np.nan,np.median(train['Age'].dropna()),inplace=True)
+train.head()
 
-#getting values only from these values
+train['Sex'].value_counts()
+#most men die than woman
+train['Embarked'].value_counts()
+#depends on embarked place
+
+sb.scatterplot(x=train['Survived'],y=train['SibSp'])
+sb.scatterplot(x=train['Survived'],y=train['Parch'],color="red")
+#both sibsp and patch do not deopend on survival]
+
 coloum=["Pclass", "Sex", "SibSp", "Parch"]
-X_train = pd.get_dummies(train[coloum])
 X_test = pd.get_dummies(test[coloum])
-#from sklearn.model_selection import train_test_split
+X_train = pd.get_dummies(train[coloum])
 
-#X_train=train[["Pclass", "Sex", "SibSp", "Parch"]]  # Features
-y=train['Survived']  # Labels
-
-#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
-
-#creating gaussian classifier
+y=train['Survived']  
 basic = RandomForestClassifier(n_estimators=100, max_depth=5, random_state=1)
 basic.fit(X_train, y)
 #training model
@@ -54,4 +52,6 @@ answer = pd.DataFrame({'PassengerId': test.PassengerId, 'Survived': y_pred})
 print(answer)
 
 basic.score(X_train,y)
-#answer.to_csv('my_submission.csv', index=False)
+answer.to_csv('my_submission.csv', index=False)
+
+
